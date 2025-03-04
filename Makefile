@@ -7,7 +7,8 @@ LDFLAGS := -Llib \
 	-framework Cocoa \
 	-framework GLUT \
 	-framework OpenGL \
-	-lraylib
+	-lraylib \
+	-lflecs_static
 
 BIN_PATH := bin
 OBJ_PATH := obj
