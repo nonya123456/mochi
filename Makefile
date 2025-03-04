@@ -39,6 +39,10 @@ all: $(TARGET)
 .PHONY: rebuild
 rebuild: clean all
 
+.PHONY: run
+run: clean all
+	@$(TARGET)
+
 .PHONY: clean
 clean:
 	@echo CLEAN $(CLEAN_LIST)
