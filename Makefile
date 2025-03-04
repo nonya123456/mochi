@@ -41,7 +41,7 @@ all: $(TARGET)
 rebuild: clean all
 
 .PHONY: run
-run: clean all
+run: rebuild
 	@$(TARGET)
 
 .PHONY: clean
