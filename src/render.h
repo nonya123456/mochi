@@ -7,7 +7,6 @@
 extern ECS_COMPONENT_DECLARE(TextRenderer);
 
 typedef struct {
-	ecs_string_t text;
 	int font_size;
 	Color color;
 } TextRenderer;

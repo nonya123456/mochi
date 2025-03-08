@@ -1,5 +1,6 @@
 #include "render.h"
 #include "position.h"
+#include "word.h"
 
 ECS_COMPONENT_DECLARE(TextRenderer);
 
@@ -24,6 +25,7 @@ void RenderSystem(ecs_iter_t *it) {
                                             {
                                                 {ecs_id(Position)},
                                                 {ecs_id(TextRenderer)},
+                                                {ecs_id(String)},
                                             },
                                     });
 
@@ -31,11 +33,13 @@ void RenderSystem(ecs_iter_t *it) {
   while (ecs_query_next(&text_it)) {
     Position *p = ecs_field(&text_it, Position, 0);
     TextRenderer *t = ecs_field(&text_it, TextRenderer, 1);
+    String *s = ecs_field(&text_it, String, 2);
+
     for (int i = 0; i < text_it.count; i++) {
-      int text_width = MeasureText(t[i].text, t[i].font_size);
+      int text_width = MeasureText(s[i], t[i].font_size);
       int text_x = p[i].x - text_width / 2.;
       int text_y = p[i].y - t[i].font_size / 2.;
-      DrawText(t[i].text, text_x, text_y, t[i].font_size, t[i].color);
+      DrawText(s[i], text_x, text_y, t[i].font_size, t[i].color);
     }
   }
   ecs_query_fini(q);
