@@ -3,6 +3,7 @@
 #include "position.h"
 #include "raylib.h"
 #include "render.h"
+#include "words.h"
 #include <raymath.h>
 
 ECS_COMPONENT_DECLARE(Score);
@@ -23,10 +24,20 @@ void LevelModuleImport(ecs_world_t *world) {
 }
 
 void spawn_one_word(ecs_iter_t *it) {
+  const WordList *word_list = ecs_singleton_get(it->world, WordList);
+  if (word_list == NULL) {
+    return;
+  }
+
   ecs_entity_t word = ecs_new(it->world);
-  ecs_set(it->world, word, String, {ecs_os_strdup("MONKEY")});
+
+  int word_index = GetRandomValue(0, word_list->word_count - 1);
+  ecs_set(it->world, word, String,
+          {ecs_os_strdup(word_list->word_list[word_index])});
+
   float position = GetRandomValue(180, 900);
   ecs_set(it->world, word, Position, {position, -48});
+
   ecs_set(it->world, word, Velocity, {0, 128});
   ecs_set(it->world, word, TextRenderer, {48, {245, 245, 245, 255}});
   ecs_add_id(it->world, word, EnemyWord);

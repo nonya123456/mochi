@@ -4,6 +4,7 @@
 #include "position.h"
 #include "render.h"
 #include "window.h"
+#include "words.h"
 #include <flecs.h>
 #include <raylib.h>
 
@@ -16,6 +17,7 @@ int main() {
   ECS_IMPORT(world, RenderModule);
   ECS_IMPORT(world, LevelModule);
   ECS_IMPORT(world, InputModule);
+  ECS_IMPORT(world, WordsModule);
 
   while (ecs_progress(world, 0)) {
   }
