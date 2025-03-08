@@ -16,7 +16,7 @@ void LevelModuleImport(ecs_world_t *world) {
   ecs_singleton_set(world, Score, {0});
 
   ECS_COMPONENT_DEFINE(world, SpawnTimer);
-  ecs_singleton_set(world, SpawnTimer, {0, 1});
+  ecs_singleton_set(world, SpawnTimer, {0, 3});
 
   ECS_SYSTEM(world, SpawnWordSystem, EcsOnUpdate);
   ECS_SYSTEM(world, WordMatchingSystem, EcsOnUpdate);
@@ -43,6 +43,24 @@ void spawn_one_word(ecs_iter_t *it) {
   ecs_add_id(it->world, word, EnemyWord);
 }
 
+float get_new_duration(ecs_iter_t *it) {
+  const Score *score = ecs_singleton_get(it->world, Score);
+  if (score == NULL) {
+    return 3;
+  }
+  if (*score < 10) {
+    return 3;
+  }
+  if (*score < 20) {
+    return 2;
+  }
+  if (*score < 30) {
+    return 1.5;
+  }
+
+  return 1;
+}
+
 void SpawnWordSystem(ecs_iter_t *it) {
   const SpawnTimer *timer = ecs_singleton_get(it->world, SpawnTimer);
   if (timer == NULL) {
@@ -50,12 +68,14 @@ void SpawnWordSystem(ecs_iter_t *it) {
   }
 
   float new_elapsed = timer->elapsed + GetFrameTime();
+  float new_duration = timer->duration;
   if (new_elapsed > timer->duration) {
     spawn_one_word(it);
     new_elapsed = 0;
+    new_duration = get_new_duration(it);
   }
 
-  ecs_singleton_set(it->world, SpawnTimer, {new_elapsed, timer->duration});
+  ecs_singleton_set(it->world, SpawnTimer, {new_elapsed, new_duration});
 }
 
 void WordMatchingSystem(ecs_iter_t *it) {
@@ -148,6 +168,7 @@ void ResetScoreSystem(ecs_iter_t *it) {
 
       clear_enemy_words(it);
       ecs_singleton_set(world, Score, {0});
+      ecs_singleton_set(world, SpawnTimer, {0, get_new_duration(it)});
     }
   }
 }
