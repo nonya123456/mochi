@@ -4,8 +4,14 @@
 #include <flecs.h>
 
 extern ECS_COMPONENT_DECLARE(Score);
+extern ECS_COMPONENT_DECLARE(SpawnTimer);
 
 typedef int Score;
+
+typedef struct {
+  float elapsed;
+  float duration;
+} SpawnTimer;
 
 void LevelModuleImport(ecs_world_t *world);
 
