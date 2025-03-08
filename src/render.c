@@ -1,7 +1,5 @@
 #include "render.h"
-#include "flecs.h"
 #include "position.h"
-#include "raylib.h"
 
 ECS_COMPONENT_DECLARE(TextRenderer);
 
@@ -37,6 +35,7 @@ void RenderSystem(ecs_iter_t *it) {
       DrawText(t[i].text, text_x, text_y, t[i].font_size, t[i].color);
     }
   }
+  ecs_query_fini(q);
 
   EndDrawing();
 }

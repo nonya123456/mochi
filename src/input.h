@@ -3,8 +3,15 @@
 
 #include <flecs.h>
 
+extern ECS_COMPONENT_DECLARE(InputText);
+
+typedef struct {
+	int count;
+} InputText;
+
 void InputModuleImport(ecs_world_t *world);
 
 void InitInputSystem(ecs_iter_t *it);
+void UpdateInputTextSystem(ecs_iter_t *it);
 
 #endif // INPUT_H
