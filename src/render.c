@@ -1,6 +1,6 @@
 #include "render.h"
+#include "common.h"
 #include "position.h"
-#include "word.h"
 
 ECS_COMPONENT_DECLARE(TextRenderer);
 

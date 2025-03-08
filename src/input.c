@@ -1,9 +1,7 @@
 #include "input.h"
+#include "common.h"
 #include "position.h"
-#include "raylib.h"
 #include "render.h"
-#include "word.h"
-#include <stdlib.h>
 
 ECS_COMPONENT_DECLARE(InputText);
 
@@ -13,7 +11,7 @@ void InputModuleImport(ecs_world_t *world) {
   ECS_COMPONENT_DEFINE(world, InputText);
 
   ECS_SYSTEM(world, InitInputSystem, EcsOnStart);
-  ECS_SYSTEM(world, UpdateInputTextSystem, EcsOnUpdate, word.module.String,
+  ECS_SYSTEM(world, UpdateInputTextSystem, EcsOnUpdate, common.module.String,
              InputText);
 }
 

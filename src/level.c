@@ -1,17 +1,10 @@
-#include "word.h"
+#include "level.h"
+#include "common.h"
 #include "position.h"
 #include "render.h"
 
-ECS_TAG_DECLARE(EnemyWord);
-ECS_TAG_DECLARE(PlayerWord);
-ECS_COMPONENT_DECLARE(String);
-
-void WordModuleImport(ecs_world_t *world) {
-  ECS_MODULE(world, WordModule);
-
-  ECS_TAG_DEFINE(world, EnemyWord);
-  ECS_TAG_DEFINE(world, PlayerWord);
-  ECS_COMPONENT_DEFINE(world, String);
+void LevelModuleImport(ecs_world_t *world) {
+  ECS_MODULE(world, LevelModule);
 
   ECS_SYSTEM(world, SpawnWordSystem, EcsOnStart);
   ECS_SYSTEM(world, WordMatchingSystem, EcsOnUpdate);
