@@ -1,3 +1,5 @@
+#include "input.h"
+#include "position.h"
 #include "render.h"
 #include "window.h"
 #include <flecs.h>
@@ -8,6 +10,8 @@ int main() {
 
   ECS_IMPORT(world, WindowModule);
   ECS_IMPORT(world, RenderModule);
+  ECS_IMPORT(world, InputModule);
+  ECS_IMPORT(world, PositionModule);
 
   while (ecs_progress(world, 0)) {
   }
