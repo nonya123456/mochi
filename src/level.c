@@ -143,6 +143,8 @@ void clear_enemy_words(ecs_iter_t *it) {
       ecs_delete(world, eit.entities[i]);
     }
   }
+
+  ecs_query_fini(eq);
 }
 
 void ResetScoreSystem(ecs_iter_t *it) {
@@ -171,4 +173,6 @@ void ResetScoreSystem(ecs_iter_t *it) {
       ecs_singleton_set(world, SpawnTimer, {0, get_new_duration(it)});
     }
   }
+
+  ecs_query_fini(eq);
 }
