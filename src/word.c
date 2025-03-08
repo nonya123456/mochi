@@ -2,7 +2,6 @@
 #include "input.h"
 #include "position.h"
 #include "render.h"
-#include <stdlib.h>
 
 ECS_TAG_DECLARE(Word);
 
@@ -16,11 +15,11 @@ void WordModuleImport(ecs_world_t *world) {
 }
 
 void SpawnWordSystem(ecs_iter_t *it) {
-  char *text = strdup("MONKEY");
   ecs_entity_t word1 = ecs_new(it->world);
   ecs_set(it->world, word1, Position, {320, -100});
   ecs_set(it->world, word1, Velocity, {0, 40});
-  ecs_set(it->world, word1, TextRenderer, {text, 48, {245, 245, 245, 255}});
+  ecs_set(it->world, word1, TextRenderer,
+          {ecs_os_strdup("MONKEY"), 48, {245, 245, 245, 255}});
   ecs_add_id(it->world, word1, Word);
 }
 
@@ -47,7 +46,7 @@ void WordMatchingSystem(ecs_iter_t *it) {
         TextRenderer *t = ecs_field(&word_it, TextRenderer, 0);
         for (int j = 0; j < word_it.count; j++) {
           if (strcmp(t[j].text, iw[i].text) == 0) {
-            free(t[j].text);
+            ecs_os_free(t[j].text);
             ecs_delete(world, word_it.entities[j]);
           }
         }
@@ -55,7 +54,7 @@ void WordMatchingSystem(ecs_iter_t *it) {
 
       ecs_query_fini(q_word);
 
-      free(iw[i].text);
+      ecs_os_free(iw[i].text);
       ecs_delete(world, input_it.entities[i]);
     }
   }

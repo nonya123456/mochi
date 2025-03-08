@@ -19,11 +19,10 @@ void InputModuleImport(ecs_world_t *world) {
 }
 
 void InitInputSystem(ecs_iter_t *it) {
-  char *text = malloc(MAX_INPUT_CHARS + 1);
   ecs_entity_t input_text = ecs_new(it->world);
   ecs_set(it->world, input_text, Position, {640, 360});
   ecs_set(it->world, input_text, TextRenderer,
-          {text, 64, {245, 245, 245, 100}});
+          {ecs_os_malloc(20), 64, {245, 245, 245, 100}});
   ecs_set(it->world, input_text, InputText, {0});
 }
 
@@ -57,10 +56,8 @@ void UpdateInputTextSystem(ecs_iter_t *it) {
   }
 
   if (IsKeyPressed(KEY_SPACE)) {
-    ecs_string_t text = malloc(MAX_INPUT_CHARS + 1);
-    strcpy(text, t[0].text);
     ecs_entity_t input_word = ecs_new(it->world);
-    ecs_set(it->world, input_word, InputWord, {text});
+    ecs_set(it->world, input_word, InputWord, {ecs_os_strdup(t[0].text)});
     i[0].count = 0;
     t[0].text[i[0].count] = '\0';
     return;

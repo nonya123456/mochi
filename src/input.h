@@ -13,7 +13,7 @@ typedef struct {
 } InputText;
 
 typedef struct {
-	char* text;
+	ecs_string_t text;
 } InputWord;
 
 void InputModuleImport(ecs_world_t *world);
