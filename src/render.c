@@ -11,5 +11,6 @@ void RenderSystem(ecs_iter_t *it) {
   BeginDrawing();
   Color c = {54, 57, 62, 255};
   ClearBackground(c);
+  DrawFPS(0, 0);
   EndDrawing();
 }

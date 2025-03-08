@@ -17,7 +17,7 @@ SRC_PATH := src
 TARGET_NAME := mochi
 TARGET := $(BIN_PATH)/$(TARGET_NAME)
 
-SRC := $(foreach x, $(SRC_PATH), $(wildcard $(addprefix $(x)/*,.c*)))
+SRC := $(foreach x, $(SRC_PATH), $(wildcard $(x)/*.c))
 OBJ := $(addprefix $(OBJ_PATH)/, $(addsuffix .o, $(notdir $(basename $(SRC)))))
 
 CLEAN_LIST := $(TARGET) $(OBJ)
@@ -27,7 +27,7 @@ default: makedir all
 $(TARGET): $(OBJ)
 	$(CC) -o $@ $(OBJ) $(LDFLAGS)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c*
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	$(CC) $(COBJFLAGS) -o $@ $<
 
 .PHONY: makedir
