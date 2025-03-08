@@ -12,4 +12,6 @@ typedef Vector2 Velocity;
 
 void PositionModuleImport(ecs_world_t *world);
 
+void MoveSystem(ecs_iter_t *it);
+
 #endif // POSITION_H
