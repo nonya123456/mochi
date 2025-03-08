@@ -3,8 +3,13 @@
 #include "position.h"
 #include "render.h"
 
+ECS_COMPONENT_DECLARE(Score);
+
 void LevelModuleImport(ecs_world_t *world) {
   ECS_MODULE(world, LevelModule);
+
+  ECS_COMPONENT_DEFINE(world, Score);
+  ecs_singleton_set(world, Score, {0});
 
   ECS_SYSTEM(world, SpawnWordSystem, EcsOnStart);
   ECS_SYSTEM(world, WordMatchingSystem, EcsOnUpdate);
@@ -46,8 +51,12 @@ void WordMatchingSystem(ecs_iter_t *it) {
         String *es = ecs_field(&eit, String, 0);
         for (int j = 0; j < eit.count; j++) {
           if (strcmp(ps[i], es[j]) == 0) {
-            ecs_os_free(es[j]);
-            ecs_delete(world, eit.entities[j]);
+            const Score *score = ecs_singleton_get(world, Score);
+            if (score != NULL) {
+              ecs_singleton_set(world, Score, {*score + 1});
+              ecs_os_free(es[j]);
+              ecs_delete(world, eit.entities[j]);
+            }
           }
         }
       }

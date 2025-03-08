@@ -8,7 +8,7 @@
 extern ECS_COMPONENT_DECLARE(InputText);
 
 typedef struct {
-	int count;
+  int count;
 } InputText;
 
 void InputModuleImport(ecs_world_t *world);

@@ -1,5 +1,6 @@
 #include "render.h"
 #include "common.h"
+#include "level.h"
 #include "position.h"
 
 ECS_COMPONENT_DECLARE(TextRenderer);
@@ -43,6 +44,16 @@ void RenderSystem(ecs_iter_t *it) {
     }
   }
   ecs_query_fini(q);
+
+  const Score *score = ecs_singleton_get(world, Score);
+  if (score != NULL) {
+    char score_str[10];
+    sprintf(score_str, "%d", *score);
+    int text_width = MeasureText(score_str, 64);
+    int text_x = 640 - text_width / 2.;
+    Color color = {245, 245, 245, 70};
+    DrawText(score_str, text_x, 48, 64, color);
+  }
 
   EndDrawing();
 }

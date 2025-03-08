@@ -7,8 +7,8 @@
 extern ECS_COMPONENT_DECLARE(TextRenderer);
 
 typedef struct {
-	int font_size;
-	Color color;
+  int font_size;
+  Color color;
 } TextRenderer;
 
 void RenderModuleImport(ecs_world_t *world);

@@ -19,7 +19,7 @@ void InitInputSystem(ecs_iter_t *it) {
   ecs_entity_t input_text = ecs_new(it->world);
   ecs_set(it->world, input_text, String, {ecs_os_malloc(20)});
   ecs_set(it->world, input_text, Position, {640, 360});
-  ecs_set(it->world, input_text, TextRenderer, {64, {245, 245, 245, 100}});
+  ecs_set(it->world, input_text, TextRenderer, {64, {245, 245, 245, 70}});
   ecs_set(it->world, input_text, InputText, {0});
 }
 
