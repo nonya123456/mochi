@@ -4,12 +4,10 @@
 #include <flecs.h>
 #include <raylib.h>
 
-#define MAX_CHARS 20
-
 extern ECS_COMPONENT_DECLARE(TextRenderer);
 
 typedef struct {
-	char text[MAX_CHARS + 1];
+	char *text;
 	int font_size;
 	Color color;
 } TextRenderer;

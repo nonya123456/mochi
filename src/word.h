@@ -9,5 +9,6 @@ extern ECS_TAG_DECLARE(Word);
 void WordModuleImport(ecs_world_t *world);
 
 void SpawnWordSystem(ecs_iter_t *it);
+void WordMatchingSystem(ecs_iter_t *it);
 
 #endif // WORD_H
